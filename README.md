@@ -15,3 +15,5 @@ where `<path-to-installation>` is the base directory where you want to install
 things (`/usr/local` is the default). To install,
 
     $ make install
+
+[![Build Status](https://travis-ci.org/csdms/bmi-c.svg?branch=master)](https://travis-ci.org/csdms/bmi-c)

@@ -12,6 +12,7 @@ extern "C" {
 int BMI_POISSON_Initialize (const char *, void**);
 int BMI_POISSON_Update (void *);
 int BMI_POISSON_Update_until (void *, double);
+int BMI_POISSON_Update_frac (void *, double);
 int BMI_POISSON_Finalize (void *);
 int BMI_POISSON_Run_model (void *);
 
@@ -46,6 +47,7 @@ int BMI_POISSON_Set_value_at_indices (void *, const char *, int *, int,
     void *);
 
 /* Grid information functions */
+int BMI_POISSON_Get_grid_type (void *, const char *, BMI_Grid_type *);
 int BMI_POISSON_Get_grid_shape (void *, const char *, int *);
 int BMI_POISSON_Get_grid_spacing (void *, const char *, double *);
 int BMI_POISSON_Get_grid_origin (void *, const char *, double *);

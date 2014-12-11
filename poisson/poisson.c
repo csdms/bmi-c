@@ -98,7 +98,7 @@ initialize_arrays (PoissonModel *self)
 
     self->t = 0;
     for (i = 0; i < n_elements; i++)
-      self->z[0][i] = random ()*1./RAND_MAX * top_x * top_x * .5 - top_x * top_x * .25;
+      self->z[0][i] = rand ()*1./RAND_MAX * top_x * top_x * .5 - top_x * top_x * .25;
     for (i = 0; i < n_rows; i++) {
       self->z[i][0] = 0.;
       self->z[i][n_cols-1] = 0.;

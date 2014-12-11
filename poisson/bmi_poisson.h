@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#include "bmi.h"
+#include <bmi/bmi.h>
 
 
 /* Model Control functions */

@@ -9,6 +9,8 @@ configure_file (${CMAKE_CURRENT_SOURCE_DIR}/poisson.pc.cmake
 
 set (BUILD_SHARED_LIBS ON)
 
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/.. )
+
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR} )
 
 set (bmi_poisson_lib_SRCS bmi_poisson.c poisson.c)

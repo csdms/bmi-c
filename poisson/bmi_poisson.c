@@ -3,7 +3,8 @@
 #include <string.h>
 #include <float.h>
 
-#include "bmi.h"
+#include <bmi/bmi.h>
+
 #include "bmi_poisson.h"
 #include "poisson.h"
 

@@ -1,4 +1,4 @@
-#include <poisson/bmi.h>
+#include <bmi/bmi.h>
 #include <poisson/bmi_poisson.h>
 
 #include <stdio.h>

@@ -1,5 +1,5 @@
+#include <bmi/bmi.h>
 #include <poisson/bmi_poisson.h>
-#include <poisson/bmi.h>
 
 #include <stdio.h>
 #include <stdlib.h>

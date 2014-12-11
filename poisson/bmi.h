@@ -5,6 +5,12 @@
 extern "C" {
 #endif
 
+
+#define BMI_API_VERSION_MAJOR (0)
+#define BMI_API_VERSION_MINOR (1)
+#define BMI_API_VERSION_MICRO (0)
+
+
 typedef enum {
   BMI_GRID_TYPE_UNKNOWN = 0,
   BMI_GRID_TYPE_UNIFORM,

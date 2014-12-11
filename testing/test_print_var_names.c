@@ -9,8 +9,6 @@ void print_var_names (void *self);
 int
 main (void)
 {
-  int i;
-  const int n_steps = 10;
   void *self = NULL;
 
   if (BMI_POISSON_Initialize (NULL, &self)!=0 || !self)

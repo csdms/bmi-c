@@ -9,8 +9,6 @@ void print_var_values (void *self, const char *var_name);
 int
 main (void)
 {
-  int i;
-  const int n_steps = 10;
   void *self = NULL;
   double *new_vals = NULL;
   int err = 0;

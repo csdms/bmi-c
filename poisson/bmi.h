@@ -1,5 +1,5 @@
-#ifndef BMI_CONSTS_INCLUDED
-#define BMI_CONSTS_INCLUDED
+#ifndef BMI_H_INCLUDED
+#define BMI_H_INCLUDED
 
 #if defined(__cplusplus)
 extern "C" {

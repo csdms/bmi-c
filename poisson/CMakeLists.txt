@@ -27,7 +27,7 @@ install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/poisson DESTINATION bin
         COMPONENT poisson)
 install(TARGETS poisson DESTINATION lib COMPONENT poisson)
 install(TARGETS bmi_poisson DESTINATION lib COMPONENT poisson)
-install(FILES bmi_poisson.h bmi.h
+install(FILES bmi_poisson.h
         DESTINATION include/poisson
         COMPONENT poisson)
 install(FILES poisson.pc DESTINATION lib/pkgconfig)

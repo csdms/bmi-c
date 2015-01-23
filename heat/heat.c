@@ -2,20 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "poisson.h"
+#include "heat.h"
 
 #define OK (0)
 #define NOT_OK (1)
 
 
-int solve_2d_poisson (double ** z, int shape[2], double spacing[2], double ** out);
-int initialize_arrays (PoissonModel *self);
+int solve_2d_heat (double ** z, int shape[2], double spacing[2], double ** out);
+int initialize_arrays (HeatModel *self);
 
 
-PoissonModel *
-poisson_from_input_file (const char * filename)
+HeatModel *
+heat_from_input_file (const char * filename)
 {
-  PoissonModel * self = NULL;
+  HeatModel * self = NULL;
 
   {
     FILE *fp = NULL;
@@ -28,7 +28,7 @@ poisson_from_input_file (const char * filename)
     if (!fp)
       return NULL;
     else
-      self = (PoissonModel*) malloc (sizeof(PoissonModel));
+      self = (HeatModel*) malloc (sizeof(HeatModel));
 
     fscanf (fp, "%lf, %lf, %d, %d", &dt, &t_end, &n_x, &n_y);
 
@@ -46,10 +46,10 @@ poisson_from_input_file (const char * filename)
   return self;
 }
 
-PoissonModel *
-poisson_from_default (void)
+HeatModel *
+heat_from_default (void)
 {
-  PoissonModel * self = (PoissonModel*) malloc (sizeof(PoissonModel));
+  HeatModel * self = (HeatModel*) malloc (sizeof(HeatModel));
 
   if (self) {
     self->dt = 1.;
@@ -69,7 +69,7 @@ poisson_from_default (void)
 
 
 int
-initialize_arrays (PoissonModel *self)
+initialize_arrays (HeatModel *self)
 {
   if (self) {
     int i;
@@ -118,7 +118,7 @@ initialize_arrays (PoissonModel *self)
 
 
 int
-poisson_free (PoissonModel *self)
+heat_free (HeatModel *self)
 {
   if (self) {
     free (self->temp_z[0]);
@@ -132,12 +132,12 @@ poisson_free (PoissonModel *self)
 
 
 int
-poisson_advance_in_time (PoissonModel * self)
+heat_advance_in_time (HeatModel * self)
 {
   if (self) {
     const int n_elements = self->shape[0] * self->shape[1];
 
-    poisson_solve_2d (self->z, self->shape, self->spacing, self->temp_z);
+    heat_solve_2d (self->z, self->shape, self->spacing, self->temp_z);
     self->t += self->dt;
     memcpy (self->z[0], self->temp_z[0], sizeof (double) * n_elements);
   }
@@ -149,7 +149,7 @@ poisson_advance_in_time (PoissonModel * self)
 
 
 int
-poisson_solve_2d (double ** z, int shape[2], double spacing[2], double ** out)
+heat_solve_2d (double ** z, int shape[2], double spacing[2], double ** out)
 {
   {
     int i, j;

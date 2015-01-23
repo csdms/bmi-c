@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-#include "poisson.h"
+#include "heat.h"
   
 int
 main(void)
 {
-  PoissonModel * p = poisson_from_default ();
+  HeatModel * p = heat_from_default ();
   int i, j, t;
 
   for (t=0; t<10; t++) {
-    poisson_advance_in_time (p);
+    heat_advance_in_time (p);
 
     fprintf (stdout, "Time: %f\n", p->t);
 

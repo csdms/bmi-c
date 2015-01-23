@@ -1,5 +1,5 @@
 #include <bmi/bmi.h>
-#include <poisson/bmi_poisson.h>
+#include <heat/bmi_heat.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,13 +13,13 @@ main (void)
   double *new_vals = NULL;
   int err = 0;
 
-  err = BMI_POISSON_Initialize (NULL, &self);
+  err = BMI_HEAT_Initialize (NULL, &self);
   if (err || !self)
     return EXIT_FAILURE;
 
   {
     char name[BMI_MAX_COMPONENT_NAME];
-    BMI_POISSON_Get_component_name (self, name);
+    BMI_HEAT_Get_component_name (self, name);
   
     fprintf (stdout, "%s\n", name);
   }
@@ -30,10 +30,10 @@ main (void)
     int len = 0;
     int i;
 
-    BMI_POISSON_Get_var_rank (self, "land_surface__elevation", &n_dims);
+    BMI_HEAT_Get_var_rank (self, "plate_surface__temperature", &n_dims);
     shape = (int*) malloc (sizeof (int)*n_dims);
 
-    BMI_POISSON_Get_grid_shape (self, "land_surface__elevation", shape);
+    BMI_HEAT_Get_grid_shape (self, "plate_surface__temperature", shape);
     for (i = 0, len = 1; i < n_dims; i++)
       len *= shape[i];
 
@@ -46,13 +46,13 @@ main (void)
 
   fprintf (stdout, "Values before set\n");
   fprintf (stdout, "=================\n");
-  print_var_values (self, "land_surface__elevation");
+  print_var_values (self, "plate_surface__temperature");
 
-  BMI_POISSON_Set_value (self, "land_surface__elevation", new_vals);
+  BMI_HEAT_Set_value (self, "plate_surface__temperature", new_vals);
 
   fprintf (stdout, "Values after set\n");
   fprintf (stdout, "================\n");
-  print_var_values (self, "land_surface__elevation");
+  print_var_values (self, "plate_surface__temperature");
 
   {
     int inds[5] = {1, 2, 4, 8, 16};
@@ -60,10 +60,10 @@ main (void)
     double *p;
     int i;
 
-    BMI_POISSON_Set_value_at_indices (self, "land_surface__elevation", inds, 5, vals);
-    print_var_values (self, "land_surface__elevation");
+    BMI_HEAT_Set_value_at_indices (self, "plate_surface__temperature", inds, 5, vals);
+    print_var_values (self, "plate_surface__temperature");
 
-    BMI_POISSON_Get_value_ptr (self, "land_surface__elevation", (void**)(&p));
+    BMI_HEAT_Get_value_ptr (self, "plate_surface__temperature", (void**)(&p));
     for (i=0; i<5; i++) {
       fprintf (stdout, "Checking %d...", inds[i]);
       if (p[inds[i]] == vals[i])
@@ -73,7 +73,7 @@ main (void)
 
   free (new_vals);
 
-  BMI_POISSON_Finalize (self);
+  BMI_HEAT_Finalize (self);
 
   return EXIT_SUCCESS;
 }
@@ -85,11 +85,11 @@ print_var_values (void *self, const char *var_name)
   int n_dims = 0;
   int *shape = NULL;
 
-  BMI_POISSON_Get_var_rank (self, var_name, &n_dims);
+  BMI_HEAT_Get_var_rank (self, var_name, &n_dims);
   shape = (int*) malloc (sizeof (int)*n_dims);
 
-  BMI_POISSON_Get_grid_shape (self, "land_surface__elevation", shape);
-  BMI_POISSON_Get_value_ptr (self, var_name, (void**)(&var));
+  BMI_HEAT_Get_grid_shape (self, "plate_surface__temperature", shape);
+  BMI_HEAT_Get_value_ptr (self, var_name, (void**)(&var));
 
   fprintf (stdout, "Variable: %s\n", var_name);
   fprintf (stdout, "Number of dimension: %d\n", n_dims);

@@ -1,5 +1,5 @@
 #include <bmi/bmi.h>
-#include <poisson/bmi_poisson.h>
+#include <heat/bmi_heat.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,14 +13,14 @@ main (void)
   const int n_steps = 10;
   void *self = NULL;
 
-  BMI_POISSON_Initialize (NULL, &self);
+  BMI_HEAT_Initialize (NULL, &self);
 
   if (!self)
     return EXIT_FAILURE;
 
   {
     char name[BMI_MAX_COMPONENT_NAME];
-    BMI_POISSON_Get_component_name (self, name);
+    BMI_HEAT_Get_component_name (self, name);
     fprintf (stdout, "%s\n", name);
   }
 
@@ -28,16 +28,16 @@ main (void)
   {
     fprintf (stdout, "Values at time %d\n", i);
     fprintf (stdout, "==============\n");
-    print_var_values (self, "land_surface__elevation");
+    print_var_values (self, "plate_surface__temperature");
 
-    BMI_POISSON_Update (self);
+    BMI_HEAT_Update (self);
   }
 
   fprintf (stdout, "Values at time %d\n", i);
   fprintf (stdout, "==============\n");
-  print_var_values (self, "land_surface__elevation");
+  print_var_values (self, "plate_surface__temperature");
 
-  BMI_POISSON_Finalize (self);
+  BMI_HEAT_Finalize (self);
 
   return EXIT_SUCCESS;
 }
@@ -50,11 +50,11 @@ print_var_values (void *self, const char *var_name)
   int rank;
   int *shape;
 
-  BMI_POISSON_Get_var_rank (self, var_name, &rank);
+  BMI_HEAT_Get_var_rank (self, var_name, &rank);
   fprintf (stderr, "rank = %d\n", rank);
   shape = (int*) malloc (sizeof (int) * rank);
 
-  BMI_POISSON_Get_grid_shape (self, var_name, shape);
+  BMI_HEAT_Get_grid_shape (self, var_name, shape);
   fprintf (stderr, "shape = %d x %d\n", shape[0], shape[1]);
 
   {
@@ -65,7 +65,7 @@ print_var_values (void *self, const char *var_name)
 
   var = (double*) malloc (sizeof (double)*len);
 
-  BMI_POISSON_Get_value (self, var_name, var);
+  BMI_HEAT_Get_value (self, var_name, var);
 
   fprintf (stdout, "Variable: %s\n", var_name);
   fprintf (stdout, "================\n");

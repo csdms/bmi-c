@@ -1,5 +1,5 @@
 #include <bmi/bmi.h>
-#include <poisson/bmi_poisson.h>
+#include <heat/bmi_heat.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +14,7 @@ main (void)
   {
     fprintf (stdout, "Initializing... ");
 
-    status = BMI_POISSON_Initialize (NULL, &self);
+    status = BMI_HEAT_Initialize (NULL, &self);
     if (status == BMI_FAILURE || !self)
       return EXIT_FAILURE;
 
@@ -24,7 +24,7 @@ main (void)
   {
     char name[BMI_MAX_COMPONENT_NAME];
 
-    status = BMI_POISSON_Get_component_name (self, name);
+    status = BMI_HEAT_Get_component_name (self, name);
     if (status == BMI_FAILURE)
       return EXIT_FAILURE;
 
@@ -40,12 +40,12 @@ main (void)
     {
       fprintf (stdout, "Running until t = %d... ", i+1);
 
-      status = BMI_POISSON_Update (self);
+      status = BMI_HEAT_Update (self);
       if (status == BMI_FAILURE)
         return EXIT_FAILURE;
 
       
-      status = BMI_POISSON_Get_current_time (self, &time);
+      status = BMI_HEAT_Get_current_time (self, &time);
       if (status == BMI_FAILURE)
         return EXIT_FAILURE;
 
@@ -57,11 +57,11 @@ main (void)
 
     fprintf (stdout, "Running until t = %f... ", 1000.5);
 
-    status = BMI_POISSON_Update_until (self, 1000.5);
+    status = BMI_HEAT_Update_until (self, 1000.5);
     if (status == BMI_FAILURE)
       return EXIT_FAILURE;
 
-    status = BMI_POISSON_Get_current_time (self, &time);
+    status = BMI_HEAT_Get_current_time (self, &time);
     if (status == BMI_FAILURE)
       return EXIT_FAILURE;
 
@@ -75,7 +75,7 @@ main (void)
 
   fprintf (stdout, "Finalizing... ");
 
-  status = BMI_POISSON_Finalize (self);
+  status = BMI_HEAT_Finalize (self);
   if (status == BMI_FAILURE)
     return EXIT_FAILURE;
 

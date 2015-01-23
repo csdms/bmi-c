@@ -1,5 +1,5 @@
 #include <bmi/bmi.h>
-#include <poisson/bmi_poisson.h>
+#include <heat/bmi_heat.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,18 +11,18 @@ main (void)
 {
   void *self = NULL;
 
-  if (BMI_POISSON_Initialize (NULL, &self)!=0 || !self)
+  if (BMI_HEAT_Initialize (NULL, &self)!=0 || !self)
     return EXIT_FAILURE;
 
   {
     char name[BMI_MAX_COMPONENT_NAME];
-    BMI_POISSON_Get_component_name (self, name);
+    BMI_HEAT_Get_component_name (self, name);
     fprintf (stdout, "%s\n", name);
   }
 
   print_var_names (self);
 
-  if (BMI_POISSON_Finalize (self) != 0)
+  if (BMI_HEAT_Finalize (self) != 0)
     return EXIT_FAILURE;
 
   return EXIT_SUCCESS;
@@ -36,13 +36,13 @@ print_var_names (void *self)
     char **names = NULL;
     int i;
 
-    BMI_POISSON_Get_input_var_name_count(self, &n_names);
+    BMI_HEAT_Get_input_var_name_count(self, &n_names);
 
     names = (char**) malloc (sizeof(char *) * n_names);
     for (i=0; i<n_names; i++)
       names[i] = (char*) malloc (sizeof(char) * BMI_MAX_VAR_NAME);
 
-    BMI_POISSON_Get_input_var_names (self, names);
+    BMI_HEAT_Get_input_var_names (self, names);
 
     fprintf (stdout, "Input var names\n");
     fprintf (stdout, "===============\n");
@@ -62,13 +62,13 @@ print_var_names (void *self)
     char **names = NULL;
     int i;
 
-    BMI_POISSON_Get_output_var_name_count(self, &n_names);
+    BMI_HEAT_Get_output_var_name_count(self, &n_names);
 
     names = (char**) malloc (sizeof(char *) * n_names);
     for (i=0; i<n_names; i++)
       names[i] = (char*) malloc (sizeof(char) * BMI_MAX_VAR_NAME);
 
-    BMI_POISSON_Get_output_var_names (self, names);
+    BMI_HEAT_Get_output_var_names (self, names);
 
     fprintf (stdout, "Output var names\n");
     fprintf (stdout, "===============\n");

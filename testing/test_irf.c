@@ -35,6 +35,11 @@ main (void)
     int i;
     const int n_steps = 10;
     double time;
+    double dt;
+
+    status = BMI_HEAT_Get_time_step(self, &dt);
+    if (status == BMI_FAILURE)
+      return EXIT_FAILURE;
 
     for (i = 0; i < n_steps; i++)
     {
@@ -43,13 +48,12 @@ main (void)
       status = BMI_HEAT_Update (self);
       if (status == BMI_FAILURE)
         return EXIT_FAILURE;
-
       
       status = BMI_HEAT_Get_current_time (self, &time);
       if (status == BMI_FAILURE)
         return EXIT_FAILURE;
 
-      if (fabs (time - (i + 1)) < 1e-6)
+      if (fabs (time / dt - (i + 1)) < 1e-6)
         fprintf (stdout, "PASS\n");
       else
         return EXIT_FAILURE;

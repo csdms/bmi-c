@@ -8,7 +8,6 @@
 #define NOT_OK (1)
 
 
-int solve_2d_heat (double ** z, int shape[2], double spacing[2], double ** out);
 int initialize_arrays (HeatModel *self);
 
 
@@ -19,7 +18,7 @@ heat_from_input_file (const char * filename)
 
   {
     FILE *fp = NULL;
-    double dt = 0.;
+    double alpha = 0.;
     double t_end = 1.;
     int n_x = 0;
     int n_y = 0;
@@ -30,9 +29,9 @@ heat_from_input_file (const char * filename)
     else
       self = (HeatModel*) malloc (sizeof(HeatModel));
 
-    fscanf (fp, "%lf, %lf, %d, %d", &dt, &t_end, &n_x, &n_y);
+    fscanf (fp, "%lf, %lf, %d, %d", &alpha, &t_end, &n_x, &n_y);
 
-    self->dt = dt;
+    self->dt = 1. / (4. * alpha);
     self->t_end = t_end;
     self->shape[0] = n_y;
     self->shape[1] = n_x;
@@ -52,12 +51,13 @@ heat_from_default (void)
   HeatModel * self = (HeatModel*) malloc (sizeof(HeatModel));
 
   if (self) {
-    self->dt = 1.;
+    self->alpha = 1.;
     self->t_end = 10.;
     self->shape[0] = 10;
     self->shape[1] = 20;
     self->spacing[0] = 1.;
     self->spacing[1] = 1.;
+    self->dt = 1. / (4. * self->alpha);
   }
   else
     return NULL;
@@ -137,7 +137,8 @@ heat_advance_in_time (HeatModel * self)
   if (self) {
     const int n_elements = self->shape[0] * self->shape[1];
 
-    heat_solve_2d (self->z, self->shape, self->spacing, self->temp_z);
+    heat_solve_2d (self->z, self->shape, self->spacing, self->alpha,
+        self->dt, self->temp_z);
     self->t += self->dt;
     memcpy (self->z[0], self->temp_z[0], sizeof (double) * n_elements);
   }
@@ -149,23 +150,36 @@ heat_advance_in_time (HeatModel * self)
 
 
 int
-heat_solve_2d (double ** z, int shape[2], double spacing[2], double ** out)
+heat_solve_2d (double ** z, int shape[2], double spacing[2], double alpha,
+    double dt, double ** out)
 {
   {
     int i, j;
-    const double rho = 0.;
     const int top_row = shape[0] - 1;
     const int top_col = shape[1] - 1;
     const double dx2 = spacing[1] * spacing[1];
     const double dy2 = spacing[0] * spacing[0];
-    const double dx2_dy2_rho = dx2 * dy2 * rho;
-    const double denom = 1. / (2 * (dx2 + dy2));
+    const double c = alpha * dt / (dx2 + dy2);
 
     for (i=1; i<top_row; i++)
       for (j=1; j<top_col; j++)
-        out[i][j] = denom * (dx2 * (z[i-1][j] + z[i+1][j]) +
-                             dy2 * (z[i][j-1] + z[i][j+1]) -
-                             dx2_dy2_rho);
+        out[i][j] = c * (dx2 * (z[i][j - 1] + z[i][j + 1]) +
+                         dy2 * (z[i - 1][j] + z[i + 1][j]) -
+                         2. * (dx2 + dy2) * z[i][j]);
+
+    for (j=0; j<shape[1]; j++) {
+        out[0][j] = 0.;
+        out[top_row][j] = 0.;
+    }
+    for (i=0; i<shape[0]; i++) {
+        out[i][0] = 0.;
+        out[i][top_col] = 0.;
+    }
+
+    for (i=1; i<top_row; i++)
+      for (j=1; j<top_col; j++)
+        out[i][j] += z[i][j];
   }
+
   return OK;
 }

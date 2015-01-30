@@ -5,6 +5,13 @@
 extern "C" {
 #endif
 
+#define BMI_SUCCESS (0)
+#define BMI_FAILURE (1)
+
+#define BMI_MAX_UNITS_NAME (2048)
+#define BMI_MAX_COMPONENT_NAME (2048)
+#define BMI_MAX_VAR_NAME (2048)
+
 
 /* Model Control functions */
 int BMI_HEAT_Initialize (const char *, void**);

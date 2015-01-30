@@ -5,8 +5,6 @@
 extern "C" {
 #endif
 
-#include <bmi/bmi.h>
-
 
 /* Model Control functions */
 int BMI_HEAT_Initialize (const char *, void**);
@@ -24,7 +22,7 @@ int BMI_HEAT_Get_input_var_names (void *, char **);
 int BMI_HEAT_Get_output_var_names (void *, char **);
 
 /* Variable information functions */
-int BMI_HEAT_Get_var_type (void *, const char *, BMI_Var_type *);
+int BMI_HEAT_Get_var_type (void *, const char *, char *);
 int BMI_HEAT_Get_var_units (void *, const char *, char *);
 int BMI_HEAT_Get_var_rank (void *, const char *, int *);
 int BMI_HEAT_Get_var_size (void *, const char *, int *);
@@ -47,7 +45,7 @@ int BMI_HEAT_Set_value_at_indices (void *, const char *, int *, int,
     void *);
 
 /* Grid information functions */
-int BMI_HEAT_Get_grid_type (void *, const char *, BMI_Grid_type *);
+int BMI_HEAT_Get_grid_type (void *, const char *, char *);
 int BMI_HEAT_Get_grid_shape (void *, const char *, int *);
 int BMI_HEAT_Get_grid_spacing (void *, const char *, double *);
 int BMI_HEAT_Get_grid_origin (void *, const char *, double *);

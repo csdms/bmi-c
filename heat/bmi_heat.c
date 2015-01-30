@@ -106,14 +106,14 @@ BMI_HEAT_Finalize (void *self)
 
 
 int
-BMI_HEAT_Get_var_type (void *self, const char *name, BMI_Var_type * type)
+BMI_HEAT_Get_var_type (void *self, const char *name, char * type)
 {
   if (strcmp (name, "plate_surface__temperature") == 0) {
-    *type = BMI_VAR_TYPE_DOUBLE;
+    strncpy(type, "double", 2048);
     return BMI_SUCCESS;
   }
   else {
-    *type = BMI_VAR_TYPE_UNKNOWN;
+    type[0] = '\0';
     return BMI_FAILURE;
   }
 }
@@ -218,17 +218,17 @@ BMI_HEAT_Get_grid_origin (void *self, const char *name, double * origin)
 
 
 int
-BMI_HEAT_Get_grid_type (void *self, const char *name, BMI_Grid_type * type)
+BMI_HEAT_Get_grid_type (void *self, const char *name, char * type)
 {
   int status = BMI_FAILURE;
 
   {
     if (strcmp (name, "plate_surface__temperature") == 0) {
-      *type = BMI_GRID_TYPE_UNIFORM;
+      strncpy(type, "uniform_rectilinear", 2048);
       status = BMI_SUCCESS;
     }
     else {
-      *type = BMI_GRID_TYPE_UNKNOWN;
+      type[0] = '\0';
       status = BMI_FAILURE;
     }
   }

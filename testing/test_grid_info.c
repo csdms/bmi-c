@@ -1,4 +1,3 @@
-#include <bmi/bmi.h>
 #include <heat/bmi_heat.h>
 
 #include <stdio.h>
@@ -70,14 +69,14 @@ main (void)
 void
 print_var_info (void *self, const char *var)
 {
-  BMI_Var_type type;
+  char type[2048];
   char units[BMI_MAX_UNITS_NAME];
   int n_dims;
   int *shape;
   double *spacing;
   double *origin;
 
-  BMI_HEAT_Get_var_type (self, var, &type);
+  BMI_HEAT_Get_var_type (self, var, type);
   BMI_HEAT_Get_var_units (self, var, units);
   BMI_HEAT_Get_var_rank (self, var, &n_dims);
 
@@ -93,7 +92,7 @@ print_var_info (void *self, const char *var)
   fprintf (stdout, "Variable info\n");
   fprintf (stdout, "=============\n");
   fprintf (stdout, "Name: %s\n", var);
-  fprintf (stdout, "Type: %d\n", type);
+  fprintf (stdout, "Type: %s\n", type);
   fprintf (stdout, "Units: %s\n", units);
   fprintf (stdout, "Rank: %d\n", n_dims);
   fprintf (stdout, "Dimension: %d x %d\n", shape[0], shape[1]);

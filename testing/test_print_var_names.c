@@ -1,4 +1,3 @@
-#include <bmi/bmi.h>
 #include <heat/bmi_heat.h>
 
 #include <stdio.h>

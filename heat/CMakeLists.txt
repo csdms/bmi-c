@@ -29,5 +29,5 @@ install(TARGETS bmi_heatc DESTINATION lib COMPONENT heat)
 install(FILES bmi_heat.h
         DESTINATION include/heat
         COMPONENT heat)
-install(FILES heat.pc DESTINATION lib/pkgconfig)
+install(FILES heatc.pc DESTINATION lib/pkgconfig)
 

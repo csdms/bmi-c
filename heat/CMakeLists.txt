@@ -4,8 +4,8 @@ project (heat)
 
 set (HEAT_VERSION 0.1)
 
-configure_file (${CMAKE_CURRENT_SOURCE_DIR}/heat.pc.cmake
-                ${CMAKE_CURRENT_SOURCE_DIR}/heat.pc)
+configure_file (${CMAKE_CURRENT_SOURCE_DIR}/heatc.pc.cmake
+                ${CMAKE_CURRENT_SOURCE_DIR}/heatc.pc)
 
 set (BUILD_SHARED_LIBS ON)
 

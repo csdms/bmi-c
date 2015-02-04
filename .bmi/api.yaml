@@ -1,13 +1,13 @@
 language: c
 bmi_prefix: BMI_HEAT
-bmi_shared_library: libbmi_heat
+bmi_shared_library: libbmi_heatc
 build:
   brew:
     formula: csdms/tools/bmi-c
     head: True
 include:
-  - "#include <bmi_heat.h>"
+  - "#include <heat/bmi_heat.h>"
 cflags:
-  - pkg-config --cflags heat
+  - pkg-config --cflags heatc
 libs:
-  - pkg-config --libs heat
+  - pkg-config --libs heatc

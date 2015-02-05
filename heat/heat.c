@@ -32,6 +32,7 @@ heat_from_input_file (const char * filename)
     fscanf (fp, "%lf, %lf, %d, %d", &alpha, &t_end, &n_x, &n_y);
 
     self->dt = 1. / (4. * alpha);
+    self->alpha = alpha;
     self->t_end = t_end;
     self->shape[0] = n_y;
     self->shape[1] = n_x;

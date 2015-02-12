@@ -3,7 +3,7 @@ prefix: BMI_HEAT
 build:
   brew:
     formula: csdms/tools/bmi-c
-    head: True
+    options: "--HEAD"
 include:
   - "#include <heat/bmi_heat.h>"
 cflags:

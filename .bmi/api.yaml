@@ -1,6 +1,5 @@
 language: c
-bmi_prefix: BMI_HEAT
-bmi_shared_library: libbmi_heatc
+prefix: BMI_HEAT
 build:
   brew:
     formula: csdms/tools/bmi-c
@@ -8,6 +7,6 @@ build:
 include:
   - "#include <heat/bmi_heat.h>"
 cflags:
-  - pkg-config --cflags heatc
+  pkgconfig: heatc
 libs:
-  - pkg-config --libs heatc
+  pkgconfig: heatc

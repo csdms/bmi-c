@@ -4,7 +4,7 @@ build:
   brew:
     formula: csdms/tools/bmi-c
     options: "--HEAD"
-include:
+includes:
   - "#include <heat/bmi_heat.h>"
 cflags:
   pkgconfig: heatc

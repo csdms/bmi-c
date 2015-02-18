@@ -10,3 +10,5 @@ cflags:
   pkgconfig: heatc
 libs:
   pkgconfig: heatc
+grids:
+  - uniform_rectilinear

@@ -1,3 +1,4 @@
+name: HeatC
 language: c
 prefix: BMI_HEAT
 build:

@@ -1,0 +1,13 @@
+language: c
+
+compiler:
+  - gcc
+
+install:
+  - mkdir _build
+  - cd _build
+  - cmake ../ -DCMAKE_INSTALL_PREFIX=$(pwd)/../_inst -DCMAKE_VERBOSE_MAKEFILE=True
+  - make install
+
+script:
+  - ctest

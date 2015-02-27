@@ -1,4 +1,4 @@
-#include "bmi.h"
+#include "bmilib.h"
 
 
 #define initialized_or_return(model) { \

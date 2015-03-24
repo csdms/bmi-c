@@ -4,8 +4,6 @@ project (bmi)
 
 set (BMI_VERSION 0.1)
 
-add_subdirectory (tests)
-
 configure_file (${CMAKE_CURRENT_SOURCE_DIR}/bmic.pc.cmake
                 ${CMAKE_CURRENT_SOURCE_DIR}/bmic.pc)
 

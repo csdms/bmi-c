@@ -1,15 +1,15 @@
 name: HeatC
 language: c
-prefix: BMI_HEAT
-build:
-  brew:
-    formula: csdms/tools/bmi-c
-    options: "--HEAD"
+
+register: register_bmi_heat
 includes:
   - "#include <heat/bmi_heat.h>"
 cflags:
   pkgconfig: heatc
 libs:
   pkgconfig: heatc
-grids:
-  - uniform_rectilinear
+
+build:
+  brew:
+    formula: csdms/tools/bmi-c
+    options: "--HEAD"

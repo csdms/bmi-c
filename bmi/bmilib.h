@@ -38,6 +38,8 @@ int BMI_Get_value_ptr(BMI_Model *, const char *, void **);
 int BMI_Set_value(BMI_Model *, const char *, void *);
 int BMI_Set_value_at_indices(BMI_Model *, const char *, int *, int, void *);
 
+BMI_Model * register_bmi_model (const char * file, const char * func);
+
 #if defined(__cplusplus)
 }
 #endif

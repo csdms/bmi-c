@@ -1,5 +1,0 @@
-Name: Bmi
-Description: The Basic Model Interface
-Version: 0.1
-Libs: -L/Users/huttone/git/csdms/bmi-c/_inst/lib -lbmic
-Cflags: -I/Users/huttone/git/csdms/bmi-c/_inst/include

@@ -108,6 +108,11 @@ int BMI_Get_var_units(BMI_Model * model, const char * name, char * units) {
 }
 
 
+int BMI_Get_var_itemsize(BMI_Model * model, const char * name, int * itemsize) {
+  call_bmi_and_return(model, get_var_itemsize, name, itemsize);
+}
+
+
 int BMI_Get_var_nbytes(BMI_Model * model, const char * name, int * nbytes) {
   call_bmi_and_return(model, get_var_nbytes, name, nbytes);
 }

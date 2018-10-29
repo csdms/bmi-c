@@ -30,6 +30,7 @@ int BMI_Get_end_time(BMI_Model*, double *);
 int BMI_Get_var_grid(BMI_Model * model, const char * name, int * grid);
 int BMI_Get_var_type(BMI_Model * model, const char * name, char * type);
 int BMI_Get_var_units(BMI_Model * model, const char * name, char * units);
+int BMI_Get_var_itemsize(BMI_Model * model, const char * name, int * itemsize);
 int BMI_Get_var_nbytes(BMI_Model * model, const char * name, int * nbytes);
 
 int BMI_Get_value(BMI_Model *, const char *, void *);

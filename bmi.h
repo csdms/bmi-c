@@ -1,10 +1,3 @@
-#ifndef BMI_H_INCLUDED
-#define BMI_H_INCLUDED
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
-
 #define BMI_SUCCESS (0)
 #define BMI_FAILURE (1)
 
@@ -13,66 +6,64 @@ extern "C" {
 #define BMI_MAX_COMPONENT_NAME (2048)
 #define BMI_MAX_VAR_NAME (2048)
 
-
 typedef struct {
-  void * self;
+  void *self;
 
-  int (* initialize)(const char *, void**);
-  int (* update)(void*);
-  int (* update_until)(void *, double);
-  int (* update_frac)(void *, double);
-  int (* finalize)(void *);
-  int (* run_model)(void *);
+  int (*initialize)(void *self char *config_file);
+  int (*update)(void *self);
+  int (*update_until)(void *self, double then);
+  int (*finalize)(void *self);
 
-  int (* get_component_name)(void *, char *);
-  int (* get_input_var_name_count)(void *, int *);
-  int (* get_output_var_name_count)(void *, int *);
-  int (* get_input_var_names)(void *, char **);
-  int (* get_output_var_names)(void *, char **);
+  int (*get_component_name)(void *self, char *name);
+  int (*get_input_item_count)(void *self, int *count);
+  int (*get_output_item_count)(void *self, int *count);
+  int (*get_input_var_names)(void *self, char **names);
+  int (*get_output_var_names)(void *self, char **names);
 
-  int (* get_var_grid)(void *, const char *, int *);
-  int (* get_var_type)(void *, const char *, char *);
-  int (* get_var_itemsize)(void *, const char *, int *);
-  int (* get_var_units)(void *, const char *, char *);
-  int (* get_var_nbytes)(void *, const char *, int *);
-  int (* get_current_time)(void *, double *);
-  int (* get_start_time)(void *, double *);
-  int (* get_end_time)(void *, double *);
-  int (* get_time_units)(void *, char *);
-  int (* get_time_step)(void *, double *);
+  int (*get_var_grid)(void *self, const char *name, int *grid);
+  int (*get_var_type)(void *self, const char *name, char *type);
+  int (*get_var_units)(void *self, const char *name, char *units);
+  int (*get_var_itemsize)(void *self, const char *name, int *size);
+  int (*get_var_nbytes)(void *self, const char *name, int *nbytes);
+  int (*get_var_location)(void *self, const char *name, char *location);
+
+  int (*get_current_time)(void *self, double *time);
+  int (*get_start_time)(void *self, double *time);
+  int (*get_end_time)(void *self, double *time);
+  int (*get_time_units)(void *self, char *units);
+  int (*get_time_step)(void *self, double *time_step);
 
   /* Variable getter and setter functions */
-  int (* get_value)(void *, const char *, void *);
-  int (* get_value_ptr)(void *, const char *, void **);
-  int (* get_value_at_indices)(void *, const char *, void *, int *, int);
+  int (*get_value)(void *self, const char *name, void *dest);
+  int (*get_value_ptr)(void *self, const char *name, void **values);
+  int (*get_value_at_indices)(void *self, const char *name, void *dest, int *inds, int count);
 
-  int (* set_value)(void *, const char *, void *);
-  int (* set_value_ptr)(void *, const char *, void **);
-  int (* set_value_at_indices)(void *, const char *, int *, int, void *);
+  int (*set_value)(void *self, const char *name, void *values);
+  int (*set_value_at_indices)(void *self, const char *name, int *inds, int count, void *src);
 
   /* Grid information functions */
-  int (* get_grid_size)(void *, int, int *);
-  int (* get_grid_rank)(void *, int, int *);
-  int (* get_grid_type)(void *, int, char *);
-  int (* get_grid_shape)(void *, int, int *);
-  int (* get_grid_spacing)(void *, int, double *);
-  int (* get_grid_origin)(void *, int, double *);
+  int (*get_grid_rank)(void *self, int grid, int *rank);
+  int (*get_grid_size)(void *self, int grid, int *size);
+  int (*get_grid_type)(void *self, int grid, char *type);
 
-  int (* get_grid_x)(void *, int, double *);
-  int (* get_grid_y)(void *, int, double *);
-  int (* get_grid_z)(void *, int, double *);
+  /* Uniform rectilinear */
+  int (*get_grid_shape)(void *self, int grid, int *shape);
+  int (*get_grid_spacing)(void *self, int grid, double *spacing);
+  int (*get_grid_origin)(void *self, int grid, double *origin);
 
-  int (* get_grid_cell_count)(void *, int, int *);
-  int (* get_grid_point_count)(void *, int, int *);
-  int (* get_grid_vertex_count)(void *, int, int *);
+  /* Non-uniform rectilinear, curvilinear */
+  int (*get_grid_x)(void *self, int grid, double *x);
+  int (*get_grid_y)(void *self, int grid, double *y);
+  int (*get_grid_z)(void *self, int grid, double *z);
 
-  int (* get_grid_connectivity)(void *, int, int *);
-  int (* get_grid_offset)(void *, int, int *);
-} BMI_Model;
+  /* Unstructured */
+  int (*get_grid_node_count)(void *self, int grid, int *count);
+  int (*get_grid_edge_count)(void *self, int grid, int *count);
+  int (*get_grid_face_count)(void *self, int grid, int *count);
 
+  int (*get_grid_edge_nodes)(void *self, int grid, int *edge_nodes);
+  int (*get_grid_face_edges)(void *self, int grid, int *face_edges);
+  int (*get_grid_face_nodes)(void *self, int grid, int *face_nodes);
+  int (*get_grid_nodes_per_face)(void *self, int grid, int *nodes_per_face);
 
-#if defined(__cplusplus)
-}
-#endif
-
-#endif
+} Bmi;

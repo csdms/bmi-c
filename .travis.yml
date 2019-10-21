@@ -1,13 +1,14 @@
 language: c
 
-compiler:
-  - gcc
+os:
+  - linux
+  - osx
 
 install:
-  - mkdir _build
-  - cd _build
-  - cmake ../ -DCMAKE_INSTALL_PREFIX=$(pwd)/../_inst -DCMAKE_VERBOSE_MAKEFILE=True
+  - mkdir _build && cd _build
+  - cmake .. -DCMAKE_INSTALL_PREFIX=../_install
   - make install
 
 script:
-  - ctest
+  - test -f ../_install/include/bmi.h
+  - test -f ../_install/lib/pkgconfig/bmic.pc

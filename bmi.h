@@ -10,7 +10,7 @@ typedef struct {
   void *self;
 
   /* Initialize, run, finalize (IRF) */
-  int (*initialize)(void *self char *config_file);
+  int (*initialize)(void *self, char *config_file);
   int (*update)(void *self);
   int (*update_until)(void *self, double then);
   int (*finalize)(void *self);

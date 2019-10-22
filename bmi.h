@@ -39,11 +39,11 @@ typedef struct {
 
   /* Getters */
   int (*get_value)(void *self, const char *name, void *dest);
-  int (*get_value_ptr)(void *self, const char *name, void **values);
+  int (*get_value_ptr)(void *self, const char *name, void **dest_ptr);
   int (*get_value_at_indices)(void *self, const char *name, void *dest, int *inds, int count);
 
   /* Setters */
-  int (*set_value)(void *self, const char *name, void *values);
+  int (*set_value)(void *self, const char *name, void *src);
   int (*set_value_at_indices)(void *self, const char *name, int *inds, int count, void *src);
 
   /* Grid information */

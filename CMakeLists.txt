@@ -1,12 +1,17 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
-project (bmi)
+project(bmic C)
 
-set (CMAKE_C_FLAGS "-ansi -Wall -Wundef -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -O2")
+set(BMI_VERSION 2.0)
 
-add_subdirectory (bmi)
-add_subdirectory (heat)
-add_subdirectory (testing)
+configure_file(${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}.pc.cmake
+  ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.pc)
 
-include (CTest)
-
+install(
+  FILES bmi.h
+  DESTINATION include
+)
+install(
+  FILES ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.pc
+  DESTINATION lib/pkgconfig
+)

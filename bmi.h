@@ -1,3 +1,6 @@
+#ifndef BMI_H
+#define BMI_H
+
 #define BMI_SUCCESS (0)
 #define BMI_FAILURE (1)
 
@@ -70,3 +73,5 @@ typedef struct {
   int (*get_grid_face_nodes)(void *self, int grid, int **face_nodes);
   int (*get_grid_nodes_per_face)(void *self, int grid, int **nodes_per_face);
 } Bmi;
+
+#endif

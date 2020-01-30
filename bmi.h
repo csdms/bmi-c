@@ -68,10 +68,10 @@ typedef struct {
   int (*get_grid_node_count)(void *self, int grid, int *count);
   int (*get_grid_edge_count)(void *self, int grid, int *count);
   int (*get_grid_face_count)(void *self, int grid, int *count);
-  int (*get_grid_edge_nodes)(void *self, int grid, int **edge_nodes);
-  int (*get_grid_face_edges)(void *self, int grid, int **face_edges);
-  int (*get_grid_face_nodes)(void *self, int grid, int **face_nodes);
-  int (*get_grid_nodes_per_face)(void *self, int grid, int **nodes_per_face);
+  int (*get_grid_edge_nodes)(void *self, int grid, int *edge_nodes);
+  int (*get_grid_face_edges)(void *self, int grid, int *face_edges);
+  int (*get_grid_face_nodes)(void *self, int grid, int *face_nodes);
+  int (*get_grid_nodes_per_face)(void *self, int grid, int *nodes_per_face);
 } Bmi;
 
 #endif

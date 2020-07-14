@@ -1,3 +1,11 @@
+/*
+   The Basic Model Interface (BMI) C specification.
+
+   This language specification is derived from the Scientific
+   Interface Definition Language (SIDL) file bmi.sidl located at
+   https://github.com/csdms/bmi.
+*/
+
 #ifndef BMI_H
 #define BMI_H
 

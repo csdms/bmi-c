@@ -60,8 +60,7 @@ jobs:
 
           cmake .. `
             -DCMAKE_INSTALL_PREFIX:PATH=$env:CONDA_PREFIX `
-            -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} `
-            -DPKG_CONFIG_EXECUTABLE:FILEPATH=$env:CONDA_PREFIX/Library/bin/pkg-config.exe
+            -DCMAKE_BUILD_TYPE=${{ matrix.build-type }}
 
       - name: Build
         working-directory: ${{ github.workspace }}/build

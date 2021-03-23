@@ -72,3 +72,9 @@ jobs:
         run: |
           test -f $CONDA_PREFIX/include/bmi.h
           test -f $CONDA_PREFIX/lib/pkgconfig/bmic.pc
+
+      - name: Test (windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          if not exist $env:CONDA_PREFIX/include/bmi.h exit 1
+          if not exist $env:CONDA_PREFIX/pkgconfig/bmic.pc exit 1

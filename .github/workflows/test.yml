@@ -67,14 +67,7 @@ jobs:
         working-directory: ${{ github.workspace }}/build
         run: cmake --build . --target install --config ${{ matrix.build-type }}
 
-      - name: Test (unix)
-        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+      - name: Test
         run: |
           test -f $CONDA_PREFIX/include/bmi.h
           test -f $CONDA_PREFIX/lib/pkgconfig/bmic.pc
-
-      - name: Test (windows)
-        if: matrix.os == 'windows-latest'
-        run: |
-          if not exist $env:CONDA_PREFIX/include/bmi.h exit 1
-          if not exist $env:CONDA_PREFIX/pkgconfig/bmic.pc exit 1

@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         build-type: [Release]
 
     steps:
@@ -51,11 +51,24 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
           -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX
 
+      - name: Configure cmake (windows)
+        if: matrix.os == 'windows-latest'
+        working-directory: ${{ github.workspace }}\build
+        shell: pwsh
+        run: |
+          & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" x86
+
+          cmake .. `
+            -DCMAKE_INSTALL_PREFIX:PATH=$env:CONDA_PREFIX `
+            -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} `
+            -DPKG_CONFIG_EXECUTABLE:FILEPATH=$env:CONDA_PREFIX/Library/bin/pkg-config.exe
+
       - name: Build
         working-directory: ${{ github.workspace }}/build
         run: cmake --build . --target install --config ${{ matrix.build-type }}
 
-      - name: Test
+      - name: Test (unix)
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         run: |
           test -f $CONDA_PREFIX/include/bmi.h
           test -f $CONDA_PREFIX/lib/pkgconfig/bmic.pc

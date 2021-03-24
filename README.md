@@ -1,5 +1,5 @@
 [![DOI](https://zenodo.org/badge/27887433.svg)](https://zenodo.org/badge/latestdoi/27887433)
-[![Build Status](https://travis-ci.org/csdms/bmi-c.svg?branch=master)](https://travis-ci.org/csdms/bmi-c)
+[![Build and Test](https://github.com/csdms/bmi-c/actions/workflows/test.yml/badge.svg)](https://github.com/csdms/bmi-c/actions/workflows/test.yml)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/bmi-c/badges/version.svg)](https://anaconda.org/conda-forge/bmi-c)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/bmi-c/badges/platforms.svg)](https://anaconda.org/conda-forge/bmi-c)
 [![Anaconda-Server Badge](https://anaconda.org/conda-forge/bmi-c/badges/downloads.svg)](https://anaconda.org/conda-forge/bmi-c)

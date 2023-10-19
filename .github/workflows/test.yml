@@ -38,7 +38,7 @@ jobs:
       - name: Make cmake build directory
         run: cmake -E make_directory build
 
-      - name: Configure CMake (unix)
+      - name: Configure CMake (Unix)
         if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         working-directory: ${{ github.workspace }}/build
         run: |
@@ -46,7 +46,7 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
           -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX
 
-      - name: Configure CMake (windows)
+      - name: Configure CMake (Windows)
         if: matrix.os == 'windows-latest'
         working-directory: ${{ github.workspace }}\build
         shell: pwsh
@@ -54,14 +54,22 @@ jobs:
           & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" x86
 
           cmake .. `
-            -DCMAKE_INSTALL_PREFIX:PATH=$env:CONDA_PREFIX `
+            -DCMAKE_INSTALL_PREFIX:PATH=$env:CONDA_PREFIX\Library `
             -DCMAKE_BUILD_TYPE=${{ matrix.build-type }}
 
       - name: Build
         working-directory: ${{ github.workspace }}/build
         run: cmake --build . --target install --config ${{ matrix.build-type }}
 
-      - name: Test
-        run: |
+      - name: Test (Unix)
+      if: matrix.os != 'windows-latest'
+      run: |
           test -f $CONDA_PREFIX/include/bmi.h
           test -f $CONDA_PREFIX/lib/pkgconfig/bmic.pc
+
+      - name: Test (Windows)
+      if: matrix.os == 'windows-latest'
+      working-directory: ${{ github.workspace }}/build
+        run: |
+        if ( -not ( Test-Path -Path $env:CONDA_PREFIX\Library\include\bmi.h ) ){ exit 1 }
+        if ( -not ( Test-Path -Path $env:CONDA_PREFIX\Library\lib\pkgconfig\bmic.pc ) ){ exit 1 }

@@ -23,27 +23,25 @@ jobs:
         build-type: [Release]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: mamba-org/setup-micromamba@v1
         with:
-          auto-update-conda: true
-          mamba-version: "*"
-          channels: conda-forge,defaults
-          channel-priority: true
-
-      - name: Show conda installation info
-        run: conda info
-
-      - name: Install build tools and dependencies into env
-        run: |
-          mamba install make cmake c-compiler pkg-config
-          mamba list
+          micromamba-version: latest
+          environment-name: testing
+          init-shell: >-
+            bash
+            powershell
+          create-args: >-
+            make
+            cmake
+            c-compiler
+            pkg-config
 
       - name: Make cmake build directory
         run: cmake -E make_directory build
 
-      - name: Configure cmake (unix)
+      - name: Configure CMake (Unix)
         if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         working-directory: ${{ github.workspace }}/build
         run: |
@@ -51,22 +49,30 @@ jobs:
           -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
           -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX
 
-      - name: Configure cmake (windows)
+      - name: Configure CMake (Windows)
         if: matrix.os == 'windows-latest'
         working-directory: ${{ github.workspace }}\build
         shell: pwsh
         run: |
-          & "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat" x86
+          & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" x86
 
           cmake .. `
-            -DCMAKE_INSTALL_PREFIX:PATH=$env:CONDA_PREFIX `
+            -DCMAKE_INSTALL_PREFIX:PATH=$env:CONDA_PREFIX\Library `
             -DCMAKE_BUILD_TYPE=${{ matrix.build-type }}
 
       - name: Build
         working-directory: ${{ github.workspace }}/build
         run: cmake --build . --target install --config ${{ matrix.build-type }}
 
-      - name: Test
+      - name: Test (Unix)
+        if: matrix.os != 'windows-latest'
         run: |
           test -f $CONDA_PREFIX/include/bmi.h
           test -f $CONDA_PREFIX/lib/pkgconfig/bmic.pc
+
+      - name: Test (Windows)
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          if ( -not ( Test-Path -Path $env:CONDA_PREFIX\Library\include\bmi.h ) ){ exit 1 }
+          if ( -not ( Test-Path -Path $env:CONDA_PREFIX\Library\lib\pkgconfig\bmic.pc ) ){ exit 1 }

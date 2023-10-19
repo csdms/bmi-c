@@ -28,7 +28,7 @@ into an Anaconda distribution with
 
 ### Linux and macOS
 
-To install the C BMI bindings from source with cmake, run
+To install the C BMI bindings from source with CMake, run
 
     mkdir _build && cd _build
     cmake .. -DCMAKE_INSTALL_PREFIX=<path-to-installation>
@@ -36,6 +36,8 @@ To install the C BMI bindings from source with cmake, run
 
 where `<path-to-installation>` is the base directory
 in which to install the bindings (`/usr/local` is the default).
+When using a conda environment,
+use the `$CONDA_PREFIX` environment variable.
 
 The installation will look like:
 
@@ -54,7 +56,7 @@ An additional prerequisite is needed for Windows:
 
 * Microsoft Visual Studio 2017 or Microsoft Build Tools for Visual Studio 2017
 
-To configure and install the C BMI bindings from source with cmake,
+To configure and install the C BMI bindings from source with CMake,
 run the following in a [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs)
 
     mkdir _build && cd _build
@@ -64,10 +66,10 @@ run the following in a [Developer Command Prompt](https://docs.microsoft.com/en-
 	  -DCMAKE_BUILD_TYPE=Release
 	cmake --build . --target install --config Release
 
-where `<path-to-installation>` is the base directory
-in which to install the bindings (`"C:\Program Files (x86)"` is the default;
-note that quotes and an absolute path are needed).
-
+where `<path-to-installation>` is the base directory in which to install the bindings.
+The default is `"C:\Program Files (x86)"`.
+Note that quotes and an absolute path are needed.
+When using a conda environment, use `"%CONDA_PREFIX%\Library"`.
 
 ## Use
 

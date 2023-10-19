@@ -29,6 +29,9 @@ jobs:
         with:
           micromamba-version: latest
           environment-name: testing
+          init-shell: >-
+            bash
+            powershell
           create-args: >-
             make
             cmake

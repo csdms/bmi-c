@@ -54,7 +54,7 @@ jobs:
         working-directory: ${{ github.workspace }}\build
         shell: pwsh
         run: |
-          & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvarsall.bat"
+          & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat" x86
 
           cmake .. `
             -DCMAKE_INSTALL_PREFIX:PATH=$env:CONDA_PREFIX\Library `

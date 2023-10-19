@@ -62,14 +62,13 @@ jobs:
         run: cmake --build . --target install --config ${{ matrix.build-type }}
 
       - name: Test (Unix)
-      if: matrix.os != 'windows-latest'
-      run: |
+        if: matrix.os != 'windows-latest'
+        run: |
           test -f $CONDA_PREFIX/include/bmi.h
           test -f $CONDA_PREFIX/lib/pkgconfig/bmic.pc
 
       - name: Test (Windows)
-      if: matrix.os == 'windows-latest'
-      working-directory: ${{ github.workspace }}/build
+        if: matrix.os == 'windows-latest'
         run: |
-        if ( -not ( Test-Path -Path $env:CONDA_PREFIX\Library\include\bmi.h ) ){ exit 1 }
-        if ( -not ( Test-Path -Path $env:CONDA_PREFIX\Library\lib\pkgconfig\bmic.pc ) ){ exit 1 }
+          if ( -not ( Test-Path -Path $env:CONDA_PREFIX\Library\include\bmi.h ) ){ exit 1 }
+          if ( -not ( Test-Path -Path $env:CONDA_PREFIX\Library\lib\pkgconfig\bmic.pc ) ){ exit 1 }

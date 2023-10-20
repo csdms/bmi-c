@@ -6,7 +6,7 @@
 
 # bmi-c
 
-C bindings for the CSDMS [Basic Model Interface](https://bmi-spec.readthedocs.io).
+C bindings for the CSDMS [Basic Model Interface](https://bmi.readthedocs.io).
 
 
 ## Build/Install
